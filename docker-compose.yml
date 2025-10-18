@@ -4,8 +4,6 @@ services:
   typst-api:
     build:
       context: https://github.com/chinpeerapat/typst-http-api-CJKy.git
-      # Usa o Dockerfile do repositório
-      pull_policy: build
     container_name: typst-http-api
     environment:
       - PORT=8000
