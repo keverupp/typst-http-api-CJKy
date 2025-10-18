@@ -1,37 +1,23 @@
-version: '3.8'
+version: "3.9"
 
 services:
   typst-api:
     build:
       context: https://github.com/chinpeerapat/typst-http-api-CJKy.git
-      dockerfile_inline: |
-        FROM rust:1.81-slim
-
-        ENV DEBIAN_FRONTEND=noninteractive
-
-        RUN apt-get update -y && \
-            apt-get install -y curl build-essential ca-certificates && \
-            rm -rf /var/lib/apt/lists/*
-
-        WORKDIR /app
-        COPY . .
-        RUN cargo build --release
-
-        EXPOSE 8000
-        CMD ["./target/release/typst-http-api"]
-
+      # Usa o Dockerfile do repositório
+      pull_policy: build
     container_name: typst-http-api
-    restart: unless-stopped
     environment:
       - PORT=8000
+    restart: unless-stopped
+    networks:
+      - proxy_network
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost:8000 || exit 1"]
       interval: 30s
       timeout: 10s
       retries: 3
       start_period: 40s
-    networks:
-      - proxy_network
 
 networks:
   proxy_network:
