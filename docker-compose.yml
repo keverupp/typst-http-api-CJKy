@@ -10,9 +10,8 @@ services:
         ENV DEBIAN_FRONTEND=noninteractive
         WORKDIR /app
 
-        # Atualiza mirrors e instala dependências
-        RUN sed -i 's|deb.debian.org|archive.debian.org|g' /etc/apt/sources.list && \
-            apt-get update -y && \
+        # Instala dependências do sistema e cargo
+        RUN apt-get update -y && \
             apt-get install -y --no-install-recommends \
               cargo \
               build-essential \
