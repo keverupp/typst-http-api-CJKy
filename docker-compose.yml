@@ -2,10 +2,9 @@ version: '3.8'
 
 services:
   typst-api:
-    build: .
+    image: ghcr.io/chinpeerapat/typst-http-api-cjky:latest
     container_name: typst-http-api
     restart: unless-stopped
-    pull_policy: build
     environment:
       - PORT=8000
     healthcheck:
